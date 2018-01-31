@@ -4,13 +4,9 @@ services:
     image: monstrenyatko/rpi-grafana
     container_name: grafana
     volumes:
-      - grafana-config:/config:ro
-      - grafana-data:/data
+      - grafana-data:/var/lib/grafana:rw
     ports:
       - "3000:3000"
     restart: unless-stopped
 volumes:
-  grafana-config:
-    external: true
   grafana-data:
-    external: true

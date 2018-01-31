@@ -1,50 +1,58 @@
-# Grafana for Docker on Raspberry Pi
+Grafana Docker image for Raspberry Pi
+=====================================
 
-#### Upstream Links
+[![Build Status](https://travis-ci.org/monstrenyatko/docker-rpi-grafana.svg?branch=master)](https://travis-ci.org/monstrenyatko/docker-rpi-grafana)
 
+
+About
+=====
+
+[Grafana](https://grafana.com/) metric analytics & visualization suite in the `Docker` container.
+
+Upstream Links
+--------------
 * Docker Registry @[monstrenyatko/rpi-grafana](https://hub.docker.com/r/monstrenyatko/rpi-grafana/)
 * GitHub @[monstrenyatko/docker-rpi-grafana](https://github.com/monstrenyatko/docker-rpi-grafana)
+* Official Docker Registry @[grafana](https://hub.docker.com/r/grafana/grafana/)
 
-## About
 
-Rework of the official [image](https://hub.docker.com/r/grafana/grafana/) to make it
-compatible with Raspberry Pi.
+Quick Start
+===========
 
-## Build the container
+* Pull prebuilt `Docker` image:
 
-* Execute build script:
-```sh
-	./build.sh
-```
-
-## Run
-
-* Create `Data` storage:
-```sh
-	GRAFANA_DATA="grafana-data"
-	docker volume create --name $GRAFANA_DATA
-```
-* Create `Configuration` storage:
-```sh
-	GRAFANA_CFG="grafana-config"
-	docker volume create --name $GRAFANA_CFG
-```
-* Copy `Configuration` to the storage:
-```sh
-	docker run -v $GRAFANA_CFG:/mnt --rm -v $(pwd):/src hypriot/armhf-busybox \
-		cp /src/grafana.ini /mnt/grafana.ini
-```
-* Edit `Configuration` (OPTIONAL):
-```sh
-	docker run -v $GRAFANA_CFG:/mnt --rm -it hypriot/armhf-busybox \
-		vi /mnt/grafana.ini
-```
+	```sh
+		docker pull monstrenyatko/rpi-grafana
+	```
 * Start prebuilt image:
-```sh
-	docker-compose up -d --no-build
-```
+
+	```sh
+		docker-compose up -d
+	```
+* Logs:
+
+	```sh
+		docker-compose logs
+	```
 * Stop/Restart:
+
+	```sh
+		docker-compose stop
+		docker-compose start
+	```
+* Start with additional command-line parameters:
+
+	```sh
+		docker-compose run grafana grafana-app <parameters>
+	```
+* Configuration options:
+	See [official Docker image](https://hub.docker.com/r/grafana/grafana/) about all available options.
+
+
+Build own image
+===============
+
 ```sh
-	docker stop grafana
-	docker start grafana
+	cd <path to sources>
+	./build.sh <tag name>
 ```
