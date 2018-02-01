@@ -22,6 +22,8 @@ file_env_opt() {
 	unset "$fileVar"
 }
 
+file_env_opt 'GF_DATABASE_PASSWORD'
+
 set -x
 set -e
 
