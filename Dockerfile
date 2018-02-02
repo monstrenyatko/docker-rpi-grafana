@@ -27,7 +27,7 @@ RUN set -x \
 
 ENV GRAFANA_VERSION 4.6.3
 RUN apt-get update \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y libfontconfig ca-certificates \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y libfontconfig ca-certificates gettext-base \
     && wget https://github.com/fg2it/grafana-on-raspberry/releases/download/v${GRAFANA_VERSION}/grafana_${GRAFANA_VERSION}_armhf.deb -O /tmp/grafana.deb \
     && dpkg --install /tmp/grafana.deb \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y -f \
