@@ -12,7 +12,12 @@ fi
 : "${GF_PATHS_PLUGINS:=/var/lib/grafana/plugins}"
 : "${GF_PATHS_PROVISIONING:=/etc/grafana/provisioning}"
 
-chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_LOGS"
+chown :grafana "$GF_PATHS_CONFIG"
+mkdir -p "$GF_PATHS_PROVISIONING" \
+    && chown -R :grafana "$GF_PATHS_PROVISIONING" \
+    && chmod -R o-rwx "$GF_PATHS_PROVISIONING"
+mkdir -p "$GF_PATHS_DATA" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS" \
+    && chown -R grafana:grafana "$GF_PATHS_DATA" "$GF_PATHS_LOGS" "$GF_PATHS_PLUGINS"
 
 if [ ! -z ${GF_AWS_PROFILES+x} ]; then
     mkdir -p ~grafana/.aws/
